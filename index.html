@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Type Switch + Slider (No Auto Scroll on Init)</title>
+<!--아래 main-color 에 원하는 색상 hex 값을 넣습니다. 자동으로 모두 조절됩니다-->
 <style>
-// 아래 main-color 에 원하는 색상 hex 값을 넣습니다. 자동으로 모두 조절됩니다
 :root {
   --main-color: #fba0b9;
   --thumb-bg: #f4f4f4;
@@ -387,7 +387,6 @@ typeButtons.forEach(btn => {
     let interval = parseInt(stage.getAttribute('data-interval') || '5000', 10);
     let timer = null;
 
-    // shouldScroll 기본값을 true로 설정 (함수 호출 시 생략하면 스크롤 함)
     function updateUI(shouldScroll = true){
       slides.forEach(s => {
         const idx = Number(s.getAttribute('data-index'));
@@ -404,8 +403,6 @@ typeButtons.forEach(btn => {
         if(i === current) t.setAttribute('data-active','true');
         else t.removeAttribute('data-active');
       });
-
-      // shouldScroll이 true일 때만 실행
       if(shouldScroll) {
           const activeThumb = thumbButtons[current];
           if(activeThumb){
@@ -418,7 +415,6 @@ typeButtons.forEach(btn => {
       if(i < 0) i = total - 1;
       if(i >= total) i = 0;
       current = i;
-      // 버튼 클릭 등 이동 시에는 스크롤 허용(true)
       updateUI(true);
       resetAutoplay();
     }
@@ -449,7 +445,6 @@ typeButtons.forEach(btn => {
       startAutoplay();
     }
 
-    // ★ 초기 실행 시에는 false를 전달하여 스크롤 방지
     updateUI(false);
     startAutoplay();
   });
@@ -468,5 +463,3 @@ typeButtons.forEach(btn => {
 
 </body>
 </html>
-
-
