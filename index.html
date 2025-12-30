@@ -75,7 +75,7 @@ div[data-upper] {
 }
 
 div[data-stage] {
-  flex: 3;
+  flex: 1;
   min-width: 300px;
   position: relative;
   border-radius: 16px;
@@ -112,8 +112,8 @@ div[data-stage] {
   font-size: 18px; transition: background 0.2s;
 }
 [data-stage] > button[data-action]:hover { background: #fff; }
-[data-stage] > button[data-action="prev"] { left: 14px; }
-[data-stage] > button[data-action="next"] { right: 14px; }
+[data-stage] > button[data-action="prev"] { left: 16px; }
+[data-stage] > button[data-action="next"] { right: 16px; }
 
 div[data-controls] {
   flex: 1;
@@ -198,6 +198,9 @@ p[data-video-desc] {
   white-space: pre-wrap;
 }
 
+div[data-controls] {
+  display: none;
+}
 @media (max-width: 600px) {
   div[data-upper] {
     flex-direction: column;
