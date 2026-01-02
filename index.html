@@ -8,7 +8,7 @@
 :root {
   --main-color: #FDA5BB;
   --thumb-bg: #f4f4f4;
-  --small-border-color: #737373;
+  --small-line: #525252;
 }
 
 html, body {
@@ -45,7 +45,7 @@ body > div[data-root-container] {
   background: var(--main-color);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 }
 
 section[data-type] { display: none; }
@@ -60,7 +60,7 @@ div[data-root] {
   background: #fff;
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.18);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -75,14 +75,14 @@ div[data-upper] {
 }
 
 div[data-stage] {
-  flex: 1;
+  flex: 3;
   min-width: 300px;
   position: relative;
   border-radius: 16px;
   background: #000;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 [data-stage] > div[data-slide] {
@@ -106,14 +106,14 @@ div[data-stage] {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 44px; height: 44px; border-radius: 50%;
   border: 0; background: rgba(255,255,255,0.85);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.18);
   cursor: pointer; z-index: 10;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; transition: background 0.2s;
 }
 [data-stage] > button[data-action]:hover { background: #fff; }
-[data-stage] > button[data-action="prev"] { left: 16px; }
-[data-stage] > button[data-action="next"] { right: 16px; }
+[data-stage] > button[data-action="prev"] { left: 14px; }
+[data-stage] > button[data-action="next"] { right: 14px; }
 
 div[data-controls] {
   flex: 1;
@@ -141,7 +141,7 @@ div[data-thumbs] {
   padding: 10px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--main-color) transparent;
+  scrollbar-color: var(--main-color) #e8e8ec;
 }
 
 [data-thumbs] > button[data-thumb] {
@@ -156,13 +156,13 @@ div[data-thumbs] {
   overflow: hidden;
   position: relative;
   transition: border-color 0.2s;
-  box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
 }
 [data-thumb] > img {
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 [data-thumbs] > button[data-thumb][data-active="true"] {
-  border-color: var(--small-border-color);
+  border-color: var(--small-line);
 }
 [data-thumbs] > button[data-thumb]:not([data-active="true"]) {
   opacity: 0.7;
@@ -198,9 +198,26 @@ p[data-video-desc] {
   white-space: pre-wrap;
 }
 
-div[data-controls] {
-  display: none;
+  /* 설명 숨기기 */
+@media (max-width: 600px) {
+  p[data-video-desc] {
+    display: none;
+  }
+
+  /* 제목 영역 높이 줄이기 */
+  div[data-info-area] {
+    padding-top: 24px;
+    padding-bottom: 4px;
+  }
+
+  /* 제목 아래 여백,크기,줄 간격 */
+  h2[data-video-title] {
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 1.2;
+  }
 }
+
 @media (max-width: 600px) {
   div[data-upper] {
     flex-direction: column;
@@ -254,29 +271,32 @@ div[data-controls] {
 // title은 단락락 제목 videotitle에는 제목, desc는 설명
 const videoData = {
     A: {
-        title: "버츄얼",
+        title: "쇼케이스",
         items: [
-            { id: "IURzJyNKPeI", videoTitle: "MonstaVT님", desc: "🐻 MonstaVT님 Live2d 모델 리깅 작업했습니다-!" },
-            { id: "4Xw2OGb1Ov0", videoTitle: "루이쨘님 4.0 SD", desc: "🐣 싸이코드 루이쨘님 4.0(연극회) SD 모델 리깅 작업했습니다-!" },
-            { id: "B-8yy4HDiEQ", videoTitle: "리안 Rian님", desc: "🍍리안님 모델 리깅 작업했습니다-!" },
-            { id: "zuvLmu2JV4I", videoTitle: "히냐님", desc: "히냐님 모델 리깅 작업했습니다-!" },
-            { id: "C96x4f4v6g8", videoTitle: "서우리님", desc: "협업 작가 서우리님 모델 리깅 작업했습니다-!" },
-            { id: "gV3tQwC8460", videoTitle: "루이쨘님 Gift SD", desc: "싸이코드 루이쨘님 기프트 SD 모델 리깅 작업했습니다-!/n선물은 듀품닮님이 보내주셨습니다.🎁✨" }
+            { id: "SF8A4xyqFao", videoTitle: "세잠님", desc: "세잠님 Live2d 모델 리깅 작업했습니다-!💖" },
+            { id: "IURzJyNKPeI", videoTitle: "MonstaVT님", desc: "MonstaVT님 Live2d 모델 리깅 작업했습니다-!💛" },
+            { id: "4Xw2OGb1Ov0", videoTitle: "루이쨘님", desc: "싸이코드 루이쨘님 4.0(연극회) SD 모델 리깅 작업했습니다-!🐣" },
+            { id: "B-8yy4HDiEQ", videoTitle: "리안님", desc: "리안님 모델 리깅 작업했습니다-!🍍" },
+            { id: "C96x4f4v6g8", videoTitle: "서우리님", desc: "협업 작가 서우리님 모델 리깅 작업했습니다-!✨" },
+            { id: "gV3tQwC8460", videoTitle: "루이쨘님", desc: "싸이코드 루이쨘님 기프트 SD 모델 리깅 작업했습니다-!\n선물은 듀품닮님이 보내주셨습니다.🎁✨" }
         ]
     },
     B: {
-        title: "월페이퍼",
+        title: "쇼츠 쇼케이스",
         items: [
-            { id: "S04OrYbTbFKCTeBS", videoTitle: "리안 Rian님", desc: "리안님 대기화면 월페이퍼 작업했습니다." },
-            { id: "qQWDt4uEq7FH2V8p", videoTitle: "온울님", desc: "온울님 여름 월페이퍼 작업했습니다." },
-            { id: "fVXes8v63aZFHUnf", videoTitle: "협업 샘플", desc: "몬드님과의 협업 샘플 작업입니다./n몬드님 방송 대기화면으로 사용중입니다." },
-            { id: "Aq3ArTmglGd1N0FD", videoTitle: "협업 샘플", desc: "양초님과의 협업 샘플 작업입니다." },
-            { id: "ZZuksmOXYAXnF_5V", videoTitle: "협업 샘플", desc: "먀온님과의 협업 샘플 작업입니다./n이로 클라우드님 팬아트입니다." },
-            { id: "ZbkcC6JA5IJrJyZQ", videoTitle: "박도하님", desc: "박도하님 배경화면 작업했습니다." },
-            { id: "NbESAPwpZxBxT77Q", videoTitle: "박도하님", desc: "박도하님 대기화면 작업했습니다." }
+            { id: "HFPS2rKUaw4", videoTitle: "판매 모델", desc: "판매 중인 SD 모델입니다.\n구매 문의는 익명 작가님 또는 저에게 연락 주시길 바랍니다." },
+            { id: "M3paOfmtl5k", videoTitle: "쎄이 ssay님", desc: "쎄이님 모델 리깅 작업했습니다-!🧪" },
+            { id: "AAU2Rm_cnqI", videoTitle: "샘플 모델1", desc: "혜야님 협업 샘플 모델 작업입니다." },
+            { id: "bf-b0Zzfaxk", videoTitle: "샘플 모델2", desc: "혜야님 협업 샘플 모델 작업입니다." },
+            { id: "JZEpUBXRSBY", videoTitle: "김제낭제님", desc: "제낭님 개인 모델 작업했습니다-!🫐" },
+            { id: "xmC1q9p8nnI", videoTitle: "하나시로 미유님", desc: "하나시로 미유님 모델 리깅 작업했습니다-!🐰" },
+            { id: "zrtmpTrhel4", videoTitle: "방가영님", desc: "방가영님 모델 리깅 작업했었습니다-!🍊" },
+            { id: "HxmZJPXf6js", videoTitle: "유키네 치아님", desc: "유키네 치아님 메이드 모델 리깅 작업했습니다-!🐻‍❄️" }
         ]
     },
 };
+
+// -------------------------------------------- 
 
 function buildAllTypes() {
     const typeButtons = document.querySelector("[data-type-buttons]");
@@ -316,7 +336,7 @@ function generateSliderHTML(items) {
              data-active="${i===0}"
              data-title="${safeTitle}"
              data-desc="${safeDesc}">
-            <iframe src="https://www.youtube.com/embed/${item.id}" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/${item.id}?mute=1" allowfullscreen></iframe>
         </div>`;
     });
 
@@ -428,6 +448,10 @@ typeButtons.forEach(btn => {
     function goTo(i){
       if(i < 0) i = total - 1;
       if(i >= total) i = 0;
+
+      stopVideo(slides[current]); // <-- 영상 멈춤 함수 호출용 추가함
+      prev = current;
+
       current = i;
       updateUI(true);
       resetAutoplay();
@@ -473,6 +497,18 @@ typeButtons.forEach(btn => {
   window.addEventListener('resize', sendHeight);
   setInterval(sendHeight, 1000);
 })();
+// --영상 멈추기--
+function stopVideo(slide){
+  if(!slide) return;
+  const iframe = slide.querySelector("iframe");
+  if(!iframe) return;
+
+  const src = iframe.src;
+  iframe.src = "";
+  iframe.src = src;
+}
+
+
 </script>
 
 </body>
