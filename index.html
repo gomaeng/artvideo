@@ -21,19 +21,29 @@ html, body {
 
 body > div[data-root-container] {
   max-width: 1180px;
-  margin: 36px auto;
-  padding: 0 20px;
+  margin: 0 auto; /* 상단 여백을 없애고 내부 패딩으로 조정 */
+  padding: 40px 20px;
   box-sizing: border-box;
 }
 
-/* --- 상단 타입 탭 버튼 (활성화 시 핑크 톤으로 변경) --- */
+/* --- [추가] 공통 섹션 제목 스타일 --- */
+.section-title {
+  color: var(--purple);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--purple);
+  padding-bottom: 10px;
+  text-align: left;
+}
+
+/* --- 상단 타입 탭 버튼 --- */
 [data-type-buttons] {
   display: flex;
   justify-content: center;
   gap: 14px;
   margin-bottom: 30px;
 }
-/* 바깥쪽 보라색 실선 */
 [data-type-buttons] .btn-wrapper {
   border: 2px solid var(--purple);
   border-radius: 999px;
@@ -41,7 +51,6 @@ body > div[data-root-container] {
   background: #fff8fa; 
   transition: all .25s;
 }
-/* 안쪽 핑크색 점선 버튼 */
 [data-type-buttons] .btn-wrapper button {
   padding: 8px 20px;
   border-radius: 999px;
@@ -55,16 +64,15 @@ body > div[data-root-container] {
   display: block;
 }
 
-/* 활성화(Active) 상태일 때 보라색 대신 핑크색 계열로 가득 차도록 변경 */
 [data-type-buttons] .btn-wrapper[data-active="true"] {
-  background: var(--pink2); /* 보라선 안쪽 배경을 한 톤 더 진한 핑크로 변경 */
+  background: var(--pink2); 
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 [data-type-buttons] .btn-wrapper[data-active="true"] button {
   border-color: #ffffff; 
-  background: var(--pink); /* 버튼 내부 배경을 대표 핑크색으로 매칭 */
-  color: #ffffff; /* 글자색은 깔끔하게 흰색으로 처리 */
+  background: var(--pink); 
+  color: #ffffff; 
 }
 
 /* --- 애니메이션 및 섹션 제어 --- */
@@ -240,14 +248,16 @@ p[data-video-desc] {
   white-space: pre-wrap;
 }
 
-/* --- 📱 [수정] 반응형 모바일 모드 디자인 수치 조정 --- */
+/* --- 📱 반응형 모바일 모드 디자인 수치 조정 --- */
 @media (max-width: 600px) {
-  /* 흰 점선 네모 칸 안쪽 여백 소폭 줄여 공간 확보 */
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
   div[data-inner-dashed] {
     padding: 12px;
     gap: 15px;
   }
-
   p[data-video-desc] {
     display: none;
   }
@@ -264,16 +274,13 @@ p[data-video-desc] {
     flex-direction: column;
     gap: 15px;
   }
-
-  /* 💡 큰 영상 스테이지가 절대 칸을 벗어나지 못하도록 수정 */
   div[data-stage] {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
     flex: none;
-    aspect-ratio: 16 / 9; /* 16:9 비율 유지 강제화 */
+    aspect-ratio: 16 / 9; 
   }
-
   div[data-controls] {
     width: 100%;
     flex: none;
@@ -297,8 +304,6 @@ p[data-video-desc] {
     width: 130px;
     aspect-ratio: 16/9;
   }
-  
-  /* 모바일 화살표 크기 소폭 조절 */
   [data-stage] > button[data-action] {
     width: 36px;
     height: 36px;
@@ -310,6 +315,9 @@ p[data-video-desc] {
 <body>
 
 <div data-root-container>
+    <!-- [추가] 타 섹션과 깔끔하게 통일된 대제목 -->
+    <div class="section-title">✦ SHOWCASE ✦</div>
+    
     <div data-type-buttons></div>
     <div id="type-container"></div>
 </div>
@@ -343,8 +351,6 @@ const videoData = {
         ]
     }
 };
-
-// -------------------------------------------- 
 
 function buildAllTypes() {
     const typeButtons = document.querySelector("[data-type-buttons]");
