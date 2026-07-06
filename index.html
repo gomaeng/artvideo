@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Type Switch + Slider (Buttons Inside Box Only)</title>
+<title>Type Switch + Slider (Fixed Layout Overflow)</title>
 <style>
 :root {
   --pink: #fcbccb;
@@ -21,19 +21,8 @@ html, body {
 body > div[data-root-container] {
   max-width: 1180px;
   margin: 0 auto; 
-  padding: 40px 20px;
+  padding: 25px 20px 40px 20px;
   box-sizing: border-box;
-}
-
-/* --- [유지] 공통 섹션 제목 스타일 (상자 바깥 원래 위치) --- */
-.section-title {
-  color: var(--purple);
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 25px; /* 👈 기존 25px에서 45px로 늘려 제목과 상자 사이를 벌려줍니다! */
-  border-bottom: 2px solid var(--purple);
-  padding-bottom: 10px;
-  text-align: left;
 }
 
 /* --- 메인 슬라이더 이중 테두리 상자 --- */
@@ -57,12 +46,12 @@ div[data-inner-dashed] {
   box-sizing: border-box;
 }
 
-/* --- [이동] 상자 내부로 들어온 타입 탭 버튼 --- */
+/* --- 상자 내부 타입 탭 버튼 --- */
 [data-type-buttons] {
   display: flex;
-  justify-content: flex-start; /* 상자 내부 정렬에 맞춰 왼쪽 정렬 */
+  justify-content: flex-start;
   gap: 14px;
-  margin-bottom: 5px; /* 아래 요소와의 간격 */
+  margin-bottom: 5px;
 }
 [data-type-buttons] .btn-wrapper {
   border: 2px solid var(--purple);
@@ -111,10 +100,10 @@ div[data-upper] {
   align-items: stretch;
 }
 
-/* --- 메인 비디오 스테이지 --- */
+/* --- 메인 비디오 스테이지 (유연한 너비 축소 가능하도록 수정) --- */
 div[data-stage] {
   flex: 3;
-  min-width: 300px;
+  min-width: 0; /* 좁은 화면에서 유연하게 한계없이 줄어들 수 있도록 기존 300px 제한 제거 */
   position: relative;
   border-radius: 12px;
   background: #000;
@@ -141,29 +130,29 @@ div[data-stage] {
   display: block;
 }
 
-/* --- 슬라이드 화살표 버튼 --- */
+/* --- 슬라이드 화살표 버튼 (영상 크기에 맞춰 패딩 및 위치 최적화) --- */
 [data-stage] > button[data-action] {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 44px; height: 44px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   border: 2px solid var(--purple); 
   background: #fffdfd;
   color: var(--purple);
   cursor: pointer; z-index: 10;
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all 0.2s;
+  font-size: 14px; transition: all 0.2s;
 }
 [data-stage] > button[data-action]:hover { 
   background: var(--pink); 
   border-color: var(--pink);
   color: #fff; 
 }
-[data-stage] > button[data-action="prev"] { left: 14px; }
-[data-stage] > button[data-action="next"] { right: 14px; }
+[data-stage] > button[data-action="prev"] { left: 10px; }
+[data-stage] > button[data-action="next"] { right: 10px; }
 
 /* --- 우측 컨트롤 및 썸네일 구역 --- */
 div[data-controls] {
   flex: 1;
-  min-width: 200px;
+  min-width: 180px; /* 창을 줄일 때 왼쪽 영상 공간 확보를 위해 약간 축소 */
   display: flex;
   flex-direction: column; 
   max-height: 100%; 
@@ -246,12 +235,8 @@ p[data-video-desc] {
   white-space: pre-wrap;
 }
 
-/* --- 모바일 반응형 --- */
-@media (max-width: 600px) {
-  .section-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
+/* --- 반응형 미디어 쿼리 (전환 시점을 768px로 확장하여 중간 크기 붕괴 방지) --- */
+@media (max-width: 768px) {
   [data-type-buttons] {
     justify-content: center;
   }
@@ -316,9 +301,6 @@ p[data-video-desc] {
 <body>
 
 <div data-root-container>
-    <!-- [원래 위치] 상자 바깥 대제목 유지 -->
-    <div class="section-title">✦ SHOWCASE ✦</div>
-    
     <div id="type-container"></div>
 </div>
 
@@ -355,20 +337,16 @@ function buildAllTypes() {
     const container = document.getElementById("type-container");
     container.innerHTML = "";
 
-    // 1. 보라색 메인 상자 생성
     const rootDiv = document.createElement("div");
     rootDiv.setAttribute("data-root", "");
 
-    // 2. 내부 핑크 점선 상자 생성
     const innerDashed = document.createElement("div");
     innerDashed.setAttribute("data-inner-dashed", "");
 
-    // 3. [수정] 탭 버튼 콘테이너를 핑크 점선 내부 상단에 바로 배치
     const typeButtons = document.createElement("div");
     typeButtons.setAttribute("data-type-buttons", "");
     innerDashed.appendChild(typeButtons);
 
-    // 4. 비디오 + 컨트롤러 배치 영역
     const upperDiv = document.createElement("div");
     upperDiv.setAttribute("data-upper", "");
 
@@ -376,7 +354,6 @@ function buildAllTypes() {
     Object.keys(videoData).forEach((typeKey, idx) => {
         const categoryData = videoData[typeKey];
 
-        // 버튼 생성
         const wrapper = document.createElement("div");
         wrapper.className = "btn-wrapper";
         wrapper.setAttribute("data-switch-target", typeKey);
@@ -389,7 +366,6 @@ function buildAllTypes() {
         wrapper.appendChild(btn);
         typeButtons.appendChild(wrapper);
 
-        // 슬라이더 아이템 누적
         categoryData.items.forEach((item, i) => {
             const safeTitle = item.videoTitle.replace(/'/g, "&apos;");
             const safeDesc = item.desc.replace(/'/g, "&apos;");
@@ -407,7 +383,6 @@ function buildAllTypes() {
         });
     });
 
-    // 썸네일 가공
     let thumbs = "";
     videoData['A'].items.forEach((item, i) => {
         thumbs += `
@@ -430,7 +405,6 @@ function buildAllTypes() {
     `;
     innerDashed.appendChild(upperDiv);
 
-    // 하단 정보 영역 조립
     const firstItem = videoData['A'].items[0];
     const infoArea = document.createElement("div");
     infoArea.setAttribute("data-info-area", "");
@@ -446,7 +420,6 @@ function buildAllTypes() {
 
 buildAllTypes();
 
-// ------------------- 제어 이벤트 바인딩 -------------------
 const wrappers = document.querySelectorAll('[data-type-buttons] .btn-wrapper');
 const root = document.querySelector('div[data-root]');
 const stage = root.querySelector('div[data-stage]');
