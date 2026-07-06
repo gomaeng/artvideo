@@ -21,7 +21,7 @@ html, body {
 body > div[data-root-container] {
   max-width: 1180px;
   margin: 0 auto; 
-  padding: 25px 20px 40px 20px; /* 대제목이 사라진 만큼 상단 여백 균형 조절 */
+  padding: 25px 20px 40px 20px;
   box-sizing: border-box;
 }
 
@@ -100,7 +100,7 @@ div[data-upper] {
   align-items: stretch;
 }
 
-/* --- 메인 비디오 스테이지 (유연한 너비 축소 가능하도록 수정) --- */
+/* --- 메인 비디오 스테이지 --- */
 div[data-stage] {
   flex: 3;
   min-width: 0; 
@@ -130,7 +130,7 @@ div[data-stage] {
   display: block;
 }
 
-/* --- 슬라이드 화살표 버튼 (영상 크기에 맞춰 패딩 및 위치 최적화) --- */
+/* --- 슬라이드 화살표 버튼 --- */
 [data-stage] > button[data-action] {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 40px; height: 40px; border-radius: 50%;
@@ -235,7 +235,7 @@ p[data-video-desc] {
   white-space: pre-wrap;
 }
 
-/* --- 반응형 미디어 쿼리 (전환 시점을 768px로 확장하여 중간 크기 붕괴 방지) --- */
+/* --- 반응형 미디어 쿼리 --- */
 @media (max-width: 768px) {
   [data-type-buttons] {
     justify-content: center;
@@ -375,7 +375,7 @@ function buildAllTypes() {
                  data-type-group="${typeKey}"
                  data-id="${item.id}" 
                  data-index="${i}" 
-                 data-active="${idx === 0 && i === 0}"
+                 data-active="${idx === 0 && i === 0 ? 'true' : 'false'}"
                  data-title="${safeTitle}"
                  data-desc="${safeDesc}">
                 <iframe src="https://www.youtube.com/embed/${item.id}?mute=1" allowfullscreen></iframe>
@@ -510,6 +510,7 @@ wrappers.forEach(wrap => {
     });
 });
 
+// 이벤트 리스너가 바인딩된 후 썸네일 초기화 및 버튼 매칭 진행
 renderThumbsForType("A");
 
 prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
