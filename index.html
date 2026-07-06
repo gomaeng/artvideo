@@ -21,7 +21,7 @@ html, body {
 body > div[data-root-container] {
   max-width: 1180px;
   margin: 0 auto; 
-  padding: 25px 20px 40px 20px;
+  padding: 25px 20px 40px 20px; /* 대제목이 사라진 만큼 상단 여백 균형 조절 */
   box-sizing: border-box;
 }
 
@@ -103,7 +103,7 @@ div[data-upper] {
 /* --- 메인 비디오 스테이지 (유연한 너비 축소 가능하도록 수정) --- */
 div[data-stage] {
   flex: 3;
-  min-width: 0; /* 좁은 화면에서 유연하게 한계없이 줄어들 수 있도록 기존 300px 제한 제거 */
+  min-width: 0; 
   position: relative;
   border-radius: 12px;
   background: #000;
@@ -152,7 +152,7 @@ div[data-stage] {
 /* --- 우측 컨트롤 및 썸네일 구역 --- */
 div[data-controls] {
   flex: 1;
-  min-width: 180px; /* 창을 줄일 때 왼쪽 영상 공간 확보를 위해 약간 축소 */
+  min-width: 180px; 
   display: flex;
   flex-direction: column; 
   max-height: 100%; 
